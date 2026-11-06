@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مخطط الراتب الشهري</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+:root{--bg:#f2f5f7;--card:#fff;--ink:#14232b;--mute:#5d6f78;--line:#dde4e8;--accent:#1f5fbf;--ok:#23805f;--warn:#c98a12;--bad:#c4432f;--soft:#e8f0fb;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10181d;--card:#192329;--ink:#e8eef1;--mute:#93a5ae;--line:#2a3841;--accent:#6fa3f0;--ok:#4cc29a;--warn:#e5b04a;--bad:#ef7a66;--soft:#1d2d44;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10181d;--card:#192329;--ink:#e8eef1;--mute:#93a5ae;--line:#2a3841;--accent:#6fa3f0;--ok:#4cc29a;--warn:#e5b04a;--bad:#ef7a66;--soft:#1d2d44;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;font-size:16px;line-height:1.6}
+main{max-width:560px;margin:0 auto;padding:16px 14px 40px}
+h1{font-size:22px;margin:8px 0 2px;font-weight:800}
+h2{font-size:17px;margin:0 0 10px;font-weight:700}
+.sub{color:var(--mute);margin:0 0 14px;font-size:14px}
+section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+label{display:block;font-size:14px;color:var(--mute);margin-bottom:4px}
+input{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;min-width:0}
+input:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.row input:first-child{flex:1.4}.row input:nth-child(2){flex:1}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:8px}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:10px 14px;background:var(--accent);color:#fff;font-weight:700}
+button.ghost{background:var(--soft);color:var(--accent)}
+button.x{background:transparent;color:var(--bad);padding:6px 10px;font-size:18px}
+.hero{background:var(--accent);color:#fff;border:0;text-align:center;padding:20px 14px}
+.hero .big{font-size:42px;font-weight:800;line-height:1.1}
+.hero small{opacity:.9;font-size:14px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.stat{background:rgba(255,255,255,.16);border-radius:10px;padding:8px}
+.stat b{display:block;font-size:18px}
+.bar{height:12px;background:var(--line);border-radius:8px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .25s}
+.split{display:flex;justify-content:space-between;font-size:15px;padding:6px 0;border-bottom:1px dashed var(--line)}
+.split:last-child{border:0}
+.tag{font-size:13px;color:var(--mute)}
+.list .it{display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}
+.list .it span{flex:1}
+.list .it em{font-style:normal;font-weight:700}
+.note{font-size:13px;color:var(--mute);margin-top:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chip{background:var(--soft);color:var(--accent);padding:7px 12px;font-size:14px;font-weight:500}
+.chip.on{background:var(--accent);color:#fff;font-weight:700}
+.caprow{padding:8px 0;border-bottom:1px dashed var(--line)}
+.caprow:last-child{border:0}
+.chartbox{margin:10px 0 20px}
+.pie::after{content:"";position:absolute;left:14%;right:14%;bottom:-2px;height:20px;z-index:-1;background:radial-gradient(ellipse,rgba(20,35,43,.32),transparent 70%);filter:blur(4px)}
+.ctitle{font-weight:700;text-align:center}
+.pie{position:relative;width:240px;height:170px;margin:8px auto 10px;perspective:800px}
+.pie .stack{position:absolute;left:50%;top:50%;width:230px;height:230px;margin:-115px 0 0 -115px;transform-style:preserve-3d;transform:rotateX(58deg)}
+.pie .ly{position:absolute;inset:0;border-radius:50%;-webkit-mask:radial-gradient(circle,transparent 33%,#000 34%);mask:radial-gradient(circle,transparent 33%,#000 34%)}
+.dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-inline-end:7px}
+.chartbox label{display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px;color:var(--mute);margin:2px 0}
+.chartbox input[type=checkbox]{width:auto}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 6px}
+.tab{background:var(--soft);color:var(--ink);padding:8px 4px;display:flex;flex-direction:column;align-items:center;font-weight:500}
+.tab small{color:var(--mute);font-size:12px}
+.tab b{font-size:17px}
+.tab.on{background:var(--accent);color:#fff}
+.tab.on small{color:#fff;opacity:.9}
+select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:2px 6px}
+.day{display:flex;justify-content:space-between;font-weight:700;color:var(--accent);margin-top:14px;padding-bottom:4px;border-bottom:2px solid var(--line)}
+.caphead{display:flex;align-items:center;gap:8px;justify-content:space-between}
+.caphead input{width:120px;padding:6px 10px}
+.caprow .bar{height:8px;margin:6px 0 2px}
+.warn{color:var(--bad);font-weight:700}
+:root{--glass:rgba(255,255,255,.55);--glassb:rgba(255,255,255,.7);--fieldbg:rgba(255,255,255,.5)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--glass:rgba(28,40,48,.5);--glassb:rgba(255,255,255,.14);--fieldbg:rgba(0,0,0,.28)}}
+:root[data-theme="dark"]{--glass:rgba(28,40,48,.5);--glassb:rgba(255,255,255,.14);--fieldbg:rgba(0,0,0,.28)}
+html{background:var(--bg)}
+body{background:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 12% 8%,rgba(31,95,191,.5),transparent 42%),radial-gradient(circle at 88% 22%,rgba(139,92,246,.42),transparent 42%),radial-gradient(circle at 15% 82%,rgba(35,166,122,.42),transparent 42%),radial-gradient(circle at 92% 92%,rgba(224,165,38,.38),transparent 40%)}
+section{background:var(--glass);-webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);border:1px solid var(--glassb);border-radius:20px;box-shadow:0 10px 34px rgba(20,35,43,.14)}
+input,select{background:var(--fieldbg);border:1px solid var(--glassb);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+button.ghost,.chip,.tab{background:var(--fieldbg);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid var(--glassb)}
+.chip.on,.tab.on{background:rgba(31,95,191,.88);color:#fff}
+section.hero{background:linear-gradient(135deg,rgba(31,95,191,.82),rgba(139,92,246,.72));border:1px solid rgba(255,255,255,.35);color:#fff}
+.stat{background:rgba(255,255,255,.18);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25)}
+.split,.caprow,.list .it{border-color:var(--glassb)}
+.bar{background:var(--fieldbg)}
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6C5CE7">
+<link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+<main>
+<h1>مخطط الراتب الشهري</h1>
+<p class="sub">أدخل راتبك والتزاماتك، وسيحسب لك كم تصرف يومياً طوال الشهر.</p>
+
+<section class="hero" id="hero">
+  <small>المتاح لك اليوم</small>
+  <div class="big" id="today">0</div>
+  <small id="todaySub"></small>
+  <div class="stats">
+    <div class="stat"><small>الباقي من الشهر</small><b id="rem">0</b></div>
+    <div class="stat"><small>أيام متبقية</small><b id="days">0</b></div>
+  </div>
+</section>
+
+<section>
+  <h2>1. الراتب والدخل</h2>
+  <div class="grid">
+    <div><label for="salary">الراتب الشهري</label><input id="salary" type="number" inputmode="decimal" placeholder="مثلاً 5000"></div>
+    <div><label for="cur">العملة</label><input id="cur" type="text" placeholder="ر.س"></div>
+  </div>
+  <div style="margin-top:14px">
+    <label>دخل إضافي (مكافأة، عمل جانبي، هدية…)</label>
+    <div id="extra"></div>
+    <button class="ghost" id="addExtra">+ إضافة دخل إضافي</button>
+    <div class="split" style="margin-top:10px"><span>إجمالي الدخل هذا الشهر</span><b id="incTotal">0</b></div>
+  </div>
+</section>
+
+<section>
+  <h2>2. الالتزامات الثابتة</h2>
+  <p class="sub">إيجار، فواتير، أقساط، اشتراكات… أي مبلغ يخرج كل شهر.</p>
+  <div id="fixed"></div>
+  <button class="ghost" id="addFixed">+ إضافة التزام</button>
+  <div class="split" style="margin-top:10px"><span>مجموع الالتزامات</span><b id="fixedTotal">0</b></div>
+</section>
+
+<section>
+  <h2>3. الادخار</h2>
+  <label for="savePct">نسبة الادخار من الدخل: <b id="savePctV">10</b>%</label>
+  <input id="savePct" type="range" min="0" max="50" step="1" value="10" style="padding:0">
+  <div class="split"><span>مبلغ الادخار</span><b id="saveAmt">0</b></div>
+  <div class="split"><span class="tag">الميزانية المتاحة للمصروف اليومي (أكل، مواصلات، ترفيه…)</span><b id="avail">0</b></div>
+  <div class="split"><span>تعادل أسبوعياً</span><b id="weekly">0</b></div>
+</section>
+<section>
+  <h2>4. سقف كل تصنيف</h2>
+  <p class="sub">حدّد أقصى مبلغ تصرفه شهرياً على كل تصنيف، وسأنبهك عند الاقتراب منه.</p>
+  <div id="caps"></div>
+  <div class="note" id="capSum"></div>
+</section>
+
+<section>
+  <h2>5. سجّل مصروفك</h2>
+  <div class="note warn" id="capAlert"></div>
+  <div class="chips" id="chips"></div>
+  <div class="grid">
+    <input id="eNote" type="text" list="past" placeholder="ماذا اشتريت؟ مثل: فاكهة، لحم، طلبية…" style="grid-column:1/-1" autocomplete="off"><datalist id="past"></datalist>
+    <input id="eAmt" type="number" inputmode="decimal" placeholder="المبلغ">
+    <button id="eAdd">إضافة</button>
+  </div>
+  
+  <div class="note" id="todayInfo"></div>
+  <div class="bar"><i id="bar"></i></div>
+  <div id="cats"></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="note">بداية الأسبوع: <select id="ws"><option value="6">السبت</option><option value="0">الأحد</option><option value="1">الاثنين</option></select> — اضغط على اليوم أو الأسبوع أو الشهر لترى مشترياته.</div>
+  <div class="list" id="list"></div>
+  <button class="ghost" id="reset" style="margin-top:12px">بدء شهر جديد (مسح المصروفات والدخل الإضافي)</button>
+</section>
+<section>
+  <h2>6. المخططات</h2>
+  <p class="sub">توزيع دخلك ومصروفاتك هذا الشهر، وتتحدّث مع كل إضافة.</p>
+  <div class="chartbox"><div class="ctitle">استهلاك الدخل</div><div class="pie" id="pieInc"></div><div id="legInc"></div></div>
+  <div class="chartbox"><div class="ctitle">المصروفات</div><label><input type="checkbox" id="incFixed"> تضمين الالتزامات الثابتة</label><div class="pie" id="pieExp"></div><div id="legExp"></div></div>
+</section>
+</main>
+
+<script>
+const KEY='budget-planner-v1';
+let S={salary:0,cur:'',savePct:10,fixed:[{n:'إيجار',a:0},{n:'فواتير',a:0}],exp:[]};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+const $=id=>document.getElementById(id);
+const fmt=n=>Math.round(n).toLocaleString('en-US');
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const now=new Date();
+const dim=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+const daysLeft=dim-now.getDate()+1;
+const mk=now.getFullYear()+'-'+(now.getMonth()+1);
+const dk=mk+'-'+now.getDate();
+const cur=()=>S.cur||'';
+const CATS=[['food','🍽️ أكل'],['transport','🚗 مواصلات'],['shop','🛍️ تسوق'],['fun','🎬 ترفيه'],['health','💊 صحة'],['other','📦 أخرى']];
+let selCat='food';
+const catName=k=>(CATS.find(x=>x[0]===k)||CATS[5])[1];
+function renderChips(){$('chips').innerHTML=CATS.map(([k,l])=>`<button class="chip${k===selCat?' on':''}" data-c="${k}">${l}</button>`).join('')}
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+function renderFixed(){
+  $('fixed').innerHTML=S.fixed.map((f,i)=>`<div class="row"><input data-i="${i}" data-k="n" value="${esc(f.n)}" placeholder="الاسم"><input data-i="${i}" data-k="a" type="number" inputmode="decimal" value="${f.a||''}" placeholder="المبلغ"><button class="x" data-del="${i}" aria-label="حذف">×</button></div>`).join('');
+}
+function renderList(){
+  const items=S.exp.map((e,i)=>({e,i})).filter(x=>inView(x.e)).reverse();
+  const dayTot={};items.forEach(({e})=>{dayTot[e.d]=(dayTot[e.d]||0)+e.a});let lastD='';
+  $('list').innerHTML=items.length?items.map(({e,i})=>(e.d!==lastD?(lastD=e.d,`<div class="day"><span>${e.d===dk?'اليوم':'يوم '+e.d.split('-')[2]}</span><span>${fmt(dayTot[e.d])} ${cur()}</span></div>`):'')+`<div class="it"><span>${catName(e.c)}${e.t?' — '+esc(e.t):''}${e.h?'<br><small class="tag">'+e.h+'</small>':''}</span><em>${fmt(e.a)}</em><button class="x" data-xe="${i}" aria-label="حذف">×</button></div>`).join(''):'<p class="note">لا توجد مصروفات في هذه الفترة بعد.</p>';
+}
+function calc(){
+  const sal=(+S.salary||0)+(S.extra||[]).reduce((s,f)=>s+(+f.a||0),0);
+  $('incTotal').textContent=fmt(sal)+' '+cur();
+  const fixed=S.fixed.reduce((s,f)=>s+(+f.a||0),0);
+  const sv=sal*S.savePct/100;
+  const avail=sal-fixed-sv;
+  const mExp=S.exp.filter(e=>e.m===mk);
+  const spent=mExp.reduce((s,e)=>s+e.a,0);
+  const spentToday=mExp.filter(e=>e.d===dk).reduce((s,e)=>s+e.a,0);
+  const rem=avail-spent;
+  const allow=(rem+spentToday)/daysLeft;
+  const left=allow-spentToday;
+  const c=cur();
+  $('fixedTotal').textContent=fmt(fixed)+' '+c;
+  $('savePctV').textContent=S.savePct;
+  $('saveAmt').textContent=fmt(sv)+' '+c;
+  $('avail').textContent=fmt(avail)+' '+c;
+  $('weekly').textContent=fmt(avail/dim*7)+' '+c;
+  $('today').textContent=fmt(Math.max(left,0))+' '+c;
+  $('rem').textContent=fmt(rem)+' '+c;
+  $('days').textContent=daysLeft;
+  $('todaySub').textContent=sal?('حصتك اليومية: '+fmt(Math.max(allow,0))+' '+c):'أدخل راتبك للبدء';
+  const pct=allow>0?Math.min(100,spentToday/allow*100):(spentToday>0?100:0);
+  const by={};mExp.forEach(e=>{const k=e.c||'other';by[k]=(by[k]||0)+e.a});
+  $('cats').innerHTML=spent>0?'<div class="note">توزيع مصروف الشهر حسب التصنيف</div>'+CATS.filter(([k])=>by[k]).map(([k,l])=>`<div class="split"><span>${l}</span><b>${fmt(by[k])} ${c} <small class="tag">(${Math.round(by[k]/spent*100)}%)</small></b></div>`).join(''):'';
+  $('bar').style.width=pct+'%';
+  let capTotal=0;const alerts=[];
+  CATS.forEach(([k,l])=>{const cap=+S.caps[k]||0,sp=by[k]||0;capTotal+=cap;const b=$('cb-'+k),t=$('ct-'+k);if(!b)return;const p=cap>0?Math.min(100,sp/cap*100):0;b.style.width=p+'%';b.style.background=p>=100?'var(--bad)':p>=80?'var(--warn)':'var(--ok)';
+    if(cap>0){const r=cap-sp;if(r>=0){t.textContent='صرفت '+fmt(sp)+' من '+fmt(cap)+' — باقي '+fmt(r)+' '+c;if(p>=80)alerts.push('⚠️ اقتربت من سقف '+l+' ('+Math.round(p)+'%)')}else{t.innerHTML='<span class="warn">تجاوزت السقف بمقدار '+fmt(-r)+' '+c+'</span>';alerts.push('⛔ تجاوزت سقف '+l)}}
+    else t.textContent=sp>0?'صرفت '+fmt(sp)+' '+c+' (بدون سقف)':'';});
+  $('capSum').innerHTML=capTotal>avail&&capTotal>0?'<span class="warn">مجموع السقوف ('+fmt(capTotal)+') أكبر من ميزانيتك المتاحة ('+fmt(Math.max(avail,0))+' '+c+'). خفّض بعضها.</span>':(capTotal>0?'مجموع السقوف '+fmt(capTotal)+' من '+fmt(Math.max(avail,0))+' '+c+' متاحة.':'اكتب مبلغاً بجانب أي تصنيف لتفعيل السقف.');
+  $('capAlert').innerHTML=alerts.join('<br>');
+  drawCharts(by,fixed,sal,sv,spent);
+  const tot=f=>S.exp.filter(f).reduce((s,e)=>s+e.a,0);
+  const tt={day:tot(e=>e.d===dk),week:tot(inWeek),month:tot(e=>e.m===mk)};
+  $('tabs').innerHTML=[['day','اليوم'],['week','هذا الأسبوع'],['month','هذا الشهر']].map(([k,l])=>`<button class="tab${view===k?' on':''}" data-v="${k}"><small>${l}</small><b>${fmt(tt[k])}</b></button>`).join('');
+  $('bar').style.background=pct>=100?'var(--bad)':pct>75?'var(--warn)':'var(--ok)';
+  $('todayInfo').innerHTML=avail<0?'<span class="warn">التزاماتك والادخار أكبر من الراتب. قلّل الادخار أو راجع الالتزامات.</span>':(rem<0?'<span class="warn">تجاوزت ميزانية الشهر بمقدار '+fmt(-rem)+' '+c+'</span>':'صرفت اليوم '+fmt(spentToday)+' '+c+(left<0?' — تجاوزت حصة اليوم، وسيُخصم الفرق من الأيام القادمة.':''));
+  save();
+}
+
+$('salary').value=S.salary||'';
+$('cur').value=S.cur;
+$('savePct').value=S.savePct;
+$('salary').oninput=e=>{S.salary=+e.target.value||0;calc()};
+$('cur').oninput=e=>{S.cur=e.target.value;calc()};
+$('savePct').oninput=e=>{S.savePct=+e.target.value;calc()};
+$('fixed').oninput=e=>{const t=e.target,i=t.dataset.i;if(i===undefined)return;S.fixed[i][t.dataset.k]=t.dataset.k==='a'?(+t.value||0):t.value;calc()};
+$('fixed').onclick=e=>{const d=e.target.dataset.del;if(d===undefined)return;S.fixed.splice(d,1);renderFixed();calc()};
+$('addFixed').onclick=()=>{S.fixed.push({n:'',a:0});renderFixed();calc()};
+$('eAdd').onclick=()=>{
+  const a=+$('eAmt').value;
+  if(!a||a<=0){$('eAmt').focus();return}
+  S.exp.push({a,t:$('eNote').value.trim(),c:selCat,m:mk,d:dk,h:new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'})});
+  $('eAmt').value='';$('eNote').value='';
+  renderList();renderPast();calc();$('eNote').focus();
+};
+$('list').onclick=e=>{const x=e.target.dataset.xe;if(x===undefined)return;S.exp.splice(x,1);renderList();calc()};
+$('reset').onclick=()=>{if(confirm('هل تريد مسح مصروفات هذا الشهر والدخل الإضافي؟')){S.exp=S.exp.filter(e=>e.m!==mk);S.extra=[];renderExtra();renderList();calc()}};
+$('chips').onclick=e=>{const c=e.target.dataset.c;if(!c)return;selCat=c;renderChips()};
+S.caps=S.caps||{};S.extra=S.extra||[];
+function renderExtra(){$('extra').innerHTML=S.extra.map((f,i)=>`<div class="row"><input data-ei="${i}" data-k="n" value="${esc(f.n)}" placeholder="المصدر"><input data-ei="${i}" data-k="a" type="number" inputmode="decimal" value="${f.a||''}" placeholder="المبلغ"><button class="x" data-dele="${i}" aria-label="حذف">×</button></div>`).join('')}
+$('extra').oninput=e=>{const t=e.target,i=t.dataset.ei;if(i===undefined)return;S.extra[i][t.dataset.k]=t.dataset.k==='a'?(+t.value||0):t.value;calc()};
+$('extra').onclick=e=>{const d=e.target.dataset.dele;if(d===undefined)return;S.extra.splice(d,1);renderExtra();calc()};
+$('addExtra').onclick=()=>{S.extra.push({n:'',a:0});renderExtra();calc()};
+renderExtra();
+function renderCaps(){$('caps').innerHTML=CATS.map(([k,l])=>`<div class="caprow"><div class="caphead"><span>${l}</span><input type="number" inputmode="decimal" data-cap="${k}" value="${S.caps[k]||''}" placeholder="السقف"></div><div class="bar"><i id="cb-${k}"></i></div><div class="tag" id="ct-${k}"></div></div>`).join('')}
+$('caps').oninput=e=>{const k=e.target.dataset.cap;if(!k)return;S.caps[k]=+e.target.value||0;calc()};
+const KW={food:['فاكه','لحم','خبز','خضار','دجاج','سمك','حليب','قهو','مطعم','وجبة','غداء','عشاء','فطور','بقال','عصير','ماء','سوبر','طلبية'],transport:['بنزين','وقود','اوبر','أوبر','تاكسي','باص','مواصلات','موقف','صيانة'],health:['دواء','صيدلية','دكتور','طبيب','علاج'],fun:['سينما','لعبة','رحلة','كافيه'],shop:['ملابس','حذاء','جوال','هدية']};
+function renderPast(){const n=[...new Set(S.exp.map(e=>e.t).filter(Boolean))].slice(-40);$('past').innerHTML=n.map(x=>`<option value="${esc(x)}">`).join('')}
+$('eNote').oninput=()=>{const v=$('eNote').value;for(const k in KW){if(KW[k].some(w=>v.includes(w))){selCat=k;renderChips();break}}};
+['eNote','eAmt'].forEach(id=>$(id).addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('eAdd').click()}}));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&new Date().getDate()!==now.getDate())location.reload()});
+S.ws=S.ws??1;let view='day';
+const dObj=d=>{const p=d.split('-');return new Date(+p[0],+p[1]-1,+p[2])};
+const wStart=()=>{const t=new Date(now.getFullYear(),now.getMonth(),now.getDate());t.setDate(t.getDate()-((t.getDay()-S.ws+7)%7));return t};
+const inWeek=e=>dObj(e.d)>=wStart();
+const inView=e=>view==='day'?e.d===dk:view==='week'?inWeek(e):e.m===mk;
+const PAL=['#6C5CE7','#00CEC9','#FD79A8','#FDCB6E','#0984E3','#55EFC4','#FF7675','#A29BFE'];
+function mkPie(id){$(id).innerHTML='<div class="stack">'+Array.from({length:12},(_,i)=>`<div class="ly" style="transform:translateZ(${-i*2}px);${i?'filter:brightness(.7)':''}"></div>`).join('')+'</div>'}
+function drawPie(id,legId,items){
+  items=items.filter(x=>x[1]>0);const tot=items.reduce((s,x)=>s+x[1],0);let bg,leg;
+  if(!tot){bg='conic-gradient(var(--line) 0% 100%)';leg='<p class="note" style="text-align:center">لا توجد بيانات بعد.</p>'}
+  else{let a=0;const st=items.map((x,i)=>{const s=a;a+=x[1]/tot*100;return (x[2]||PAL[i%8])+' '+s+'% '+a+'%'});bg='conic-gradient('+st.join(',')+')';
+    leg=items.map((x,i)=>`<div class="split"><span><i class="dot" style="background:${x[2]||PAL[i%8]}"></i>${esc(x[0])}</span><b>${fmt(x[1])} ${cur()} <small class="tag">(${Math.round(x[1]/tot*100)}%)</small></b></div>`).join('')}
+  document.querySelectorAll('#'+id+' .ly').forEach(l=>l.style.background='linear-gradient(135deg,rgba(255,255,255,.32),rgba(255,255,255,0) 55%),'+bg);$(legId).innerHTML=leg}
+function drawCharts(by,fixed,sal,sv,spent){
+  const left=sal-fixed-sv-spent;
+  drawPie('pieInc','legInc',[['التزامات ثابتة',fixed,'#6C5CE7'],['مشتريات الشهر',spent,'#FD79A8'],['ادخار',sv,'#FDCB6E'],['متبقّي من الدخل',Math.max(left,0),'#00CEC9']]);
+  if(sal>0&&left<0)$('legInc').insertAdjacentHTML('beforeend','<p class="note warn">تجاوزت دخلك بمقدار '+fmt(-left)+' '+cur()+'</p>');
+  const ex=CATS.map(([k,l])=>[l,by[k]||0]);
+  if($('incFixed').checked)ex.unshift(['🏠 الالتزامات الثابتة',fixed]);
+  drawPie('pieExp','legExp',ex)}
+mkPie('pieInc');mkPie('pieExp');$('incFixed').onchange=()=>calc();
+$('ws').value=S.ws;
+$('ws').onchange=e=>{S.ws=+e.target.value;renderList();calc()};
+$('tabs').onclick=e=>{const b=e.target.closest('[data-v]');if(!b)return;view=b.dataset.v;renderList();calc()};
+renderPast();renderCaps();renderChips();renderFixed();renderList();calc();
+</script>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script>
+</body>
+</html>
